@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_authors_authors",
+  "info": {
+    "displayName": "Authors",
+    "icon": "users",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
+    },
+    "date": {
+      "type": "date"
+    },
+    "itineration": {
+      "type": "integer"
+    },
+    "time": {
+      "type": "string"
+    }
+  }
+}

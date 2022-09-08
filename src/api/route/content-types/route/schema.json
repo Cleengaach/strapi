@@ -1,0 +1,120 @@
+{
+  "kind": "collectionType",
+  "collectionName": "routes",
+  "info": {
+    "singularName": "route",
+    "pluralName": "routes",
+    "displayName": "Route",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "photogallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "length": {
+      "type": "decimal"
+    },
+    "stupanie": {
+      "type": "integer"
+    },
+    "klesanie": {
+      "type": "integer"
+    },
+    "map": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "tourType": {
+      "type": "enumeration",
+      "enum": [
+        "okruh",
+        "tamSpat",
+        "prechod"
+      ]
+    },
+    "dayNum": {
+      "type": "integer"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "easy",
+        "medium",
+        "hard",
+        "ferrata",
+        "guided",
+        "kids"
+      ]
+    },
+    "mapJson": {
+      "type": "json"
+    },
+    "mountain": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::mountain.mountain"
+    },
+    "region": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::region.region"
+    },
+    "Route_path": {
+      "displayName": "route_path",
+      "type": "component",
+      "repeatable": true,
+      "component": "location.route-path"
+    },
+    "Authors": {
+      "displayName": "Authors",
+      "type": "component",
+      "repeatable": true,
+      "component": "authors.authors"
+    },
+    "time": {
+      "type": "string"
+    }
+  }
+}

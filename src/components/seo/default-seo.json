@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_seo_default_seos",
+  "info": {
+    "displayName": "defaultSeo",
+    "icon": "globe-asia"
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string"
+    },
+    "shareImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

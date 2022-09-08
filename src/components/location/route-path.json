@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_location_route_paths",
+  "info": {
+    "displayName": "route_path",
+    "icon": "map-marker-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::point.point"
+    },
+    "farba": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "red",
+        "blue",
+        "green",
+        "yellow"
+      ]
+    },
+    "time": {
+      "type": "string"
+    }
+  }
+}

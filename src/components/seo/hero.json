@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_seo_heroes",
+  "info": {
+    "displayName": "hero"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

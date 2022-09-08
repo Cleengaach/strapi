@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Global"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "favicon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "siteName": {
+      "type": "string"
+    },
+    "defaultSeo": {
+      "displayName": "defaultSeo",
+      "type": "component",
+      "repeatable": false,
+      "component": "seo.default-seo"
+    }
+  }
+}
