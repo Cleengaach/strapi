@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.0",
     "@relate-app/strapi-plugin-gatsby": "^1.0.6",
     "@strapi/plugin-i18n": "4.3.6",
     "@strapi/plugin-users-permissions": "4.3.6",

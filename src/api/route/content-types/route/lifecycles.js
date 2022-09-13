@@ -1,5 +1,6 @@
 'use strict';
 const slugify = require('slugify');
+const axios = require('axios');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#lifecycle-hooks)
@@ -53,7 +54,7 @@ const getUniqueSlug = async (title, subtitle, slugNow, num = 0) => {
 
     const route = await strapi.db.query('api::route.route').findOne({
         select: ['slug'],
-        where: { slug: slug }, 
+        where: { slug: slug },
     });
 
     if (slug == slugNow) {
@@ -67,15 +68,102 @@ const getUniqueSlug = async (title, subtitle, slugNow, num = 0) => {
     }
 }
 
+function GetGeoJson(url) {
+    // using togeojson in nodejs
+
+    var tj = require('@mapbox/togeojson'),
+        fs = require('fs'),
+        // node doesn't have xml parsing or a dom. use xmldom
+        DOMParser = require('xmldom').DOMParser;
+
+    const { promisify } = require('util');
+
+    const writeFilePromise = promisify(fs.writeFile);
+
+    (async () => {
+        const response = await axios.get(url);
+        if (response.data) {
+            await writeFilePromise('upload.gpx', response.data);
+        }
+
+        var gpx = new DOMParser().parseFromString(fs.readFileSync('upload.gpx', 'utf8'));
+
+        var converted = tj.gpx(gpx);
+        //var converted = "asdf";
+        console.log(converted);
+        var convertedWithStyles = tj.gpx(gpx, { styles: true });
+        return converted;
+    })();
+
+
+}
+
 module.exports = {
     async beforeCreate(event) {
+        console.log(event.params.data.map, 'map')
 
+        if ((event.params.data.map !== null) && (event.params.data.map !== undefined)) {
+            var tj = require('@mapbox/togeojson'),
+                fs = require('fs'),
+                // node doesn't have xml parsing or a dom. use xmldom
+                DOMParser = require('xmldom').DOMParser;
+            const { promisify } = require('util');
+            const writeFilePromise = promisify(fs.writeFile);
+
+            const response = await axios.get(event.params.data.map[0].url);
+            if (response.data) {
+                await writeFilePromise('upload.gpx', response.data);
+            }
+
+            var gpx = new DOMParser().parseFromString(fs.readFileSync('upload.gpx', 'utf8'));
+
+            var converted = tj.gpx(gpx);
+            //var convertedWithStyles = tj.gpx(gpx, { styles: true });
+            event.params.data.mapJson = converted;
+        }
+        if (event.params.data.map === null) {
+            event.params.data.mapJson = null;
+        }
         event.params.data.slug = await getUniqueSlug(event.params.data.title, event.params.data.subtitle, event.params.data.slug);
     },
+    async afterCreate() {
+        const  fs = require('fs');
+        const { promisify } = require('util');
+        const writeFilePromise = promisify(fs.writeFile);
+        await writeFilePromise('upload.gpx', "");
+    },
     async beforeUpdate(event) {
+        console.log(event.params.data.map, 'map')
+        if ((event.params.data.map !== null) && (event.params.data.map !== undefined)) {
+            var tj = require('@mapbox/togeojson'),
+                fs = require('fs'),
+                // node doesn't have xml parsing or a dom. use xmldom
+                DOMParser = require('xmldom').DOMParser;
+            const { promisify } = require('util');
+            const writeFilePromise = promisify(fs.writeFile);
 
+            const response = await axios.get(event.params.data.map[0].url);
+            if (response.data) {
+                await writeFilePromise('upload.gpx', response.data);
+            }
+
+            var gpx = new DOMParser().parseFromString(fs.readFileSync('upload.gpx', 'utf8'));
+
+            var converted = tj.gpx(gpx);
+            //var convertedWithStyles = tj.gpx(gpx, { styles: true });
+            event.params.data.mapJson = converted;
+        }
+        if (event.params.data.map === null) {
+            event.params.data.mapJson = null;
+        }
         if (event.params.data.title) {
             event.params.data.slug = await getUniqueSlug(event.params.data.title, event.params.data.subtitle, event.params.data.slug);
         }
+    },
+    async afterUpdate() {
+        const  fs = require('fs');
+        const { promisify } = require('util');
+        const writeFilePromise = promisify(fs.writeFile);
+        await writeFilePromise('upload.gpx', "");
     },
 };
