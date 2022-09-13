@@ -137,7 +137,7 @@ module.exports = {
         if ((event.params.data.map !== null) && (event.params.data.map !== undefined)) {
             var tj = require('@mapbox/togeojson'),
                 fs = require('fs'),
-                // node doesn't have xml parsing or a dom. use xmldom
+                // node doesn't have xml parsing or a dom. use xmldom and so on
                 DOMParser = require('xmldom').DOMParser;
             const { promisify } = require('util');
             const writeFilePromise = promisify(fs.writeFile);
